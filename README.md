@@ -273,6 +273,16 @@ Principais tecnologias envolvidas no projeto:
 
 Essas ferramentas serão utilizadas para processamento, análise e visualização de dados.
 
+## Bibliotecas
+
+Biblioteca - Função
+pandas - manipulação de dados
+pyspark - processamento distribuído
+notebook - Jupyter
+openpyxl - ler Excel moderno
+xlrd - ler Excel antigo
+matplotlib - gráficos
+
 ---
 
 # Resultado Esperado
