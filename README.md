@@ -7,6 +7,7 @@
 
 ---
 
+
 # Estrutura do Projeto
 
 ```text
@@ -51,6 +52,10 @@ A análise será baseada em indicadores econômicos como:
 * Produção agrícola (IBGE PAM)
 
 O objetivo é comparar **indicadores econômicos antes e depois do desastre**, além de comparar o Rio Grande do Sul com outros estados da região sul do Brasil.
+
+## Objetivo da Mensurável
+
+Verificar se houve alteração mensurável na atividade econômica do RS após o desatre e comparar com estados semelhantes.
 
 ---
 
