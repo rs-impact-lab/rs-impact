@@ -6,7 +6,7 @@ Este documento detalha a origem, a estrutura e o mapeamento dos dados utilizados
 
 Os dados do CAGED são a base para medir a movimentação do mercado de trabalho formal (CLT).
 
-* **Fonte:** [Portal Novo CAGED - Ministério do Trabalho e Emprego](https://www.google.com/search?q=http://pdet.mte.gov.br/novo-caged)
+* **Fonte:** [Portal Novo CAGED - Ministério do Trabalho e Emprego](https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/novo-caged/meses-anteriores)
 * **Frequência:** Mensal.
 * **Granularidade:** Estadual e Municipal.
 
