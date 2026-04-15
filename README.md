@@ -1,300 +1,77 @@
 # Economia RS Impact — Projeto de Análise de Dados
 
-## Participantes
+Tema: Estudo da resiliência econômica do Rio Grande do Sul pós-desastre de 2024, cruzando dados de emprego do CAGED com índices de chuva do INMET.
 
-* Lucas
-* Rodrigo
+## Objetivo do Projeto
+
+Analisar o impacto socioeconômico das enchentes históricas no Rio Grande do Sul (ocorridas em maio de 2024) por meio da resiliência do mercado de trabalho formal. 
+
+O projeto busca correlacionar índices pluviométricos extremos com a flutuação de empregos (admissões e desligamentos), estabelecendo uma linha do tempo (2023 como base, 2024 como evento e 2025 como recuperação) para identificar o *Lag Time* (tempo de resposta) e os setores econômicos mais afetados pela catástrofe.
 
 ---
 
-
-# Estrutura do Projeto
+## Estrutura do Projeto
 
 ```text
-economia-rs-impact/
-│
+rs-impact/
 ├── data/
-│   ├── raw/
-│   │   ├── caged/
-│   │   ├── exportacoes/
-│   │   └── agro/
-│   │
-│   └── processed/
+│   ├── raw/                # Dados originais não modificados (CAGED, INMET, DEE-RS)
+│   └── processed/          # Dados limpos e padronizados gerados pelos scripts
 │
-├── notebooks/
+├── src/                    # Código-fonte principal
+│   ├── ingestion/          # Scripts de download ou extração automatizada
+│   ├── processing/         # Scripts de limpeza e conversão (ex: converter.py)
+│   ├── analysis/           # Scripts de análise estatística e agregação
+│   └── mapreduce_engine/   # Scripts de processamento distribuído (MRJob)
 │
-├── src/
-│   ├── ingestion/
-│   ├── processing/
-│   └── analysis/
+├── notebooks/              # Jupyter Notebooks para exploração e testes rápidos
 │
-├── outputs/
-│   ├── tables/
-│   └── charts/
+├── outputs/                # Resultados gerados pela análise
+│   ├── charts/             # Gráficos (PNG, PDF)
+│   └── reports/            # Relatórios em texto e sumarizações (TXT, CSV finais)
 │
-├── docs/
-│
-├── requirements.txt
-│
-└── README.md
+├── docs/                   # Documentação detalhada e metadados
+├── requirements.txt        # Dependências do projeto
+└── README.md               # Este arquivo
 ```
+---
+
+## Pipeline de Dados (Fluxo de Execução)
+
+O projeto segue um fluxo clássico de ETL e análise de Big Data:
+
+1. **Ingestão:** Coleta dos microdados do CAGED e relatórios pluviométricos.
+2. **Transformação (Limpeza):** Filtragem geográfica (isolando o RS) e padronização das colunas temporais e setoriais.
+3. **Agregação:** Concatenação dos dados de 2023, 2024 e 2025 em uma base unificada temporal.
+4. **Enriquecimento:** Join dos dados econômicos com as métricas de chuva (mm acima da média).
+5. **Análise e Visualização:** Extração de correlações estatísticas e geração dos artefatos visuais.
 
 ---
 
-# Objetivo do Projeto
+## Ferramentas e Tecnologias
 
-Este projeto tem como objetivo analisar o **impacto econômico das enchentes de 2024 no Rio Grande do Sul** utilizando datasets públicos e ferramentas de análise de dados como Python, Pandas e Apache Spark.
-
-A análise será baseada em indicadores econômicos como:
-
-* Emprego (CAGED)
-* Exportações (ComexStat)
-* Produção agrícola (IBGE PAM)
-
-O objetivo é comparar **indicadores econômicos antes e depois do desastre**, além de comparar o Rio Grande do Sul com outros estados da região sul do Brasil.
-
-## Objetivo da Mensurável
-
-Verificar se houve alteração mensurável na atividade econômica do RS após o desatre e comparar com estados semelhantes.
+* **Python 3:** Linguagem base do projeto.
+* **Pandas / Numpy:** Manipulação e limpeza de dados tabulares em memória.
+* **Apache Spark / PySpark:** Processamento distribuído para os volumes massivos de dados, se necessário.
+* **Jupyter Notebook:** Ambiente de desenvolvimento interativo para exploração inicial.
+* **Matplotlib / Seaborn:** Criação das visualizações e gráficos comparativos.
+* **Openpyxl / Xlrd:** Leitura e conversão de formatos legados e modernos do Excel.
 
 ---
 
-# Explicação dos Diretórios
+## Resultados Esperados
 
-## `data/raw`
+O projeto deverá gerar, ao final do fluxo:
 
-Contém os **datasets brutos exatamente como foram baixados** das fontes oficiais.
-
-Esses arquivos **não devem ser modificados**.
-
-Exemplo de estrutura:
-
-```text
-data/raw/caged/
-data/raw/exportacoes/
-data/raw/agro/
-```
-
-Finalidade:
-
-* preservar os dados originais
-* permitir reprodutibilidade
-* evitar perda do dataset original
+* Datasets unificados, limpos e otimizados prontos para consultas.
+* Scripts automatizados e reutilizáveis para análise de séries temporais.
+* Visualizações gráficas que comprovem ou refutem a correlação direta entre o volume de chuvas e a queda de postos de trabalho em setores específicos.
 
 ---
 
-## `data/processed`
+## Documentação Adicional
 
-Contém **datasets limpos e transformados**, prontos para análise.
+Para detalhes técnicos profundos, consulte o diretório `/docs`:
 
-Operações comuns realizadas aqui:
-
-* filtragem por estado
-* remoção de colunas desnecessárias
-* padronização de formatos
-* junção de datasets
-
-Exemplo:
-
-```text
-data/processed/emprego_rs.csv
-data/processed/exportacoes_rs.csv
-data/processed/agro_rs.csv
-```
-
----
-
-## `notebooks`
-
-Ambiente de análise exploratória.
-
-Utilizado para:
-
-* exploração inicial dos dados
-* testes rápidos
-* criação de visualizações preliminares
-
-Exemplo:
-
-```text
-notebooks/explore_caged.ipynb
-notebooks/explore_exportacoes.ipynb
-notebooks/analise_economia_rs.ipynb
-```
-
----
-
-## `src`
-
-Contém o código principal do projeto.
-
-### `src/ingestion`
-
-Responsável por **carregar os datasets**.
-
-Exemplos:
-
-```text
-load_caged.py
-load_exportacoes.py
-load_agro.py
-```
-
-Funções comuns:
-
-* leitura de arquivos CSV
-* leitura de arquivos XLS/XLSX
-* carregamento inicial dos dados
-
----
-
-### `src/processing`
-
-Responsável pela **limpeza e transformação dos dados**.
-
-Exemplos:
-
-```text
-clean_caged.py
-clean_exportacoes.py
-merge_datasets.py
-```
-
-Tarefas comuns:
-
-* filtragem
-* agregações
-* junção de tabelas
-* normalização de dados
-
----
-
-### `src/analysis`
-
-Contém scripts responsáveis pela **análise final dos dados**.
-
-Exemplo:
-
-```text
-economia_rs_analysis.py
-```
-
-Possíveis análises:
-
-* comparação de emprego antes vs depois da enchente
-* comparação de exportações entre estados
-* mudanças na produção agrícola
-
----
-
-## `outputs`
-
-Armazena os **resultados gerados pela análise**.
-
-### Tabelas
-
-```text
-outputs/tables/emprego_por_estado.csv
-outputs/tables/exportacoes_rs.csv
-```
-
-### Gráficos
-
-```text
-outputs/charts/emprego_rs.png
-outputs/charts/exportacoes_rs.png
-```
-
----
-
-## `docs`
-
-Documentação do projeto.
-
-Possíveis arquivos:
-
-```text
-docs/metodologia.md
-docs/datasets.md
-```
-
-Esses documentos podem explicar:
-
-* origem dos datasets
-* metodologia de processamento
-* explicação da análise
-
----
-
-## `requirements.txt`
-
-Lista das dependências Python utilizadas no projeto.
-
-Exemplo:
-
-```text
-pandas
-numpy
-matplotlib
-pyspark
-jupyter
-```
-
----
-
-# Pipeline de Dados
-
-Fluxo esperado do projeto:
-
-```text
-Datasets públicos
-      ↓
-Download
-      ↓
-data/raw
-      ↓
-Limpeza e transformação dos dados
-      ↓
-data/processed
-      ↓
-Análise de dados (Pandas / Spark)
-      ↓
-outputs (tabelas e gráficos)
-      ↓
-Relatório final
-```
-
----
-
-# Ferramentas Utilizadas
-
-Principais tecnologias envolvidas no projeto:
-
-* Python
-* Pandas
-* Apache Spark
-* Jupyter Notebook / Google Colab
-* Datasets em formato CSV
-
-Essas ferramentas serão utilizadas para processamento, análise e visualização de dados.
-
-## Bibliotecas
-
-Biblioteca - Função
-pandas - manipulação de dados
-pyspark - processamento distribuído
-notebook - Jupyter
-openpyxl - ler Excel moderno
-xlrd - ler Excel antigo
-matplotlib - gráficos
-
----
-
-# Resultado Esperado
-
-O projeto deverá gerar:
-
-* datasets processados
-* scripts de análise
-* visualizações (gráficos e tabelas)
-* conclusões sobre o impacto econômico das enchentes no Rio Grande do Sul
+* [`docs/datasets.md`](/docs/datasets.md): Dicionário de dados, mapeamento de colunas do CAGED e fontes originais.
+* [`docs/metodologia.md`](/docs/metodologia.md): Detalhamento estatístico e decisões de arquitetura do código.
