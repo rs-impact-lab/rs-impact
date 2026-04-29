@@ -55,3 +55,4 @@ Hipótese de que o impacto no emprego não é instantâneo à queda da chuva, ma
 
 * **Subnotificação:** O CAGED registra apenas o mercado formal. Impactos no trabalho informal (autônomos) não são capturados nesta análise.
 * **Dados Geográficos:** Algumas estações meteorológicas podem sofrer avarias durante enchentes, gerando lacunas que serão tratadas via interpolação linear.
+* **Disponibilidade:** Advindo do tempo e da manuteção, alguns links encontra-se indisponivel. Sendo assim, alguns meses de alguns respectivos anos estão com falta de dados.
