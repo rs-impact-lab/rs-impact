@@ -1,4 +1,0 @@
-Este texto tem palavras repetidas
-mapreduce hadoop palavras
-palavras palavra hadoop texto python
-mrob hadoop mapreduce hadoop
