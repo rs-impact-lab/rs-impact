@@ -1,58 +1,56 @@
 # Metodologia e Arquitetura do Projeto
 
-Este documento descreve as decisões técnicas, a arquitetura de software e os critérios estatísticos utilizados para analisar o impacto das chuvas no RS.
+Este documento descreve as decisões técnicas, a arquitetura de software e os procedimentos estatísticos utilizados para analisar o impacto socioeconômico das enchentes históricas no Rio Grande do Sul sobre a resiliência do mercado de trabalho formal^^.
 
 ## 1. Decisões de Arquitetura
 
 ### 1.1. Estrutura de Diretórios (Modularização)
 
-Optamos por uma estrutura separada por responsabilidades para garantir a escalabilidade:
+A arquitetura do projeto opera sobre um pipeline ETL (Extract, Transform, Load) segmentado para garantir reprodutibilidade e escalabilidade^^:
 
-* **`data/raw` vs `data/processed`:** Princípio da Imutabilidade. Os dados originais nunca são alterados. Toda limpeza gera um novo arquivo, evitando a corrupção da fonte primária.
-* **`src/` vs `notebooks/`:** Notebooks são usados para  **descoberta e prototipagem** . Scripts Python em `src/` são usados para  **produção e automação** .
+* **`data/raw/` vs `data/processed/`:** Princípio da imutabilidade. Os dados originais brutos não são alterados; o processamento gera arquivos consolidados nos formatos CSV e Apache Parquet^^.
+* **`src/processing/` e `src/analysis/`:** Separação entre os scripts de ingestão/transformação e os scripts responsáveis pela análise estatística e geração de gráficos^^.
 
 ### 1.2. Stack Tecnológica
 
-* **Pandas:** Escolhido pela eficiência em manipulação de matrizes e facilidade de filtros em séries temporais.
-* **Python 3.12:** Utilização de *f-strings* e melhorias de performance em ambientes Linux (Arch Linux).
-* **Ambiente Virtual (`.venv`):** Isolamento de dependências para evitar conflitos de versões (ex: `openpyxl` vs `pandas`).
-
----
+* **Python 3.12:** Linguagem base utilizada para o desenvolvimento do pipeline de processamento e das análises^^. O ambiente foi executado e homologado em sistemas Linux (Arch Linux/EndeavourOS).
+* **Pandas e SciPy:** Bibliotecas utilizadas para a manipulação dos microdados e para a implementação das análises de correlação matemática^^.
+* **Apache Parquet:** Formato de armazenamento adotado para a otimização de leitura dos dados consolidados^^.
 
 ## 2. Metodologia Estatística
 
-Para medir o "impacto", não basta olhar para 2024. Utilizamos três abordagens:
+O recorte temporal abrange o período de agosto de 2023 a dezembro de 2025, totalizando **$n=25$** observações mensais^^. A análise estruturou-se em três fases:
 
 ### 2.1. Análise de Sazonalidade (Baseline)
 
-O mercado de trabalho tem ciclos (ex: contratações de fim de ano). Usamos os dados de **2023** para estabelecer o comportamento "normal" do estado.
+* **2023:** Estabelecido como linha de base de normalidade sazonal do estado^^.
+* **2024:** Definido como o período crítico, com ênfase analítica no mês de maio^^.
+* **2025:** Monitorado como a fase de recuperação observada do mercado^^.
 
-* **Cálculo:** `Média_Mensal_2023` vs `Mês_Real_2024`.
+### 2.2. Cálculo de Correlação (Chuva vs. Emprego)
 
-### 2.2. Cálculo de Correlação (Chuva vs Emprego)
+A relação entre precipitação mensal (variável independente) e saldo de empregos (variável dependente) foi mensurada matematicamente^^:
 
-Utilizaremos o Coeficiente de Correlação de Pearson para medir a força da relação entre:
+* Foram utilizados os coeficientes de correlação de Pearson e Spearman^^.
+* O limiar de significância estatística adotado foi **$p<0,05$** para rejeição da hipótese nula, com indicação de tendência marginal para **$p<0,10$**^^.
 
-* **Variável X:** Precipitação acumulada (mm) acima da média histórica.
-* **Variável Y:** Saldo líquido de empregos (Admissões - Desligamentos).
+### 2.3. Identificação do *Lag Time* (Tempo de Resposta)
 
-### 2.3. Identificação do *Lag Time*
+Para capturar a dinâmica não instantânea do mercado de trabalho, a análise econométrica aplicou defasagens temporais:
 
-Hipótese de que o impacto no emprego não é instantâneo à queda da chuva, mas apresenta um atraso de 30 a 60 dias devido ao tempo de fechamento de folhas de pagamento e processos rescisórios.
+* Foram testadas análises contemporâneas (sem defasagem) e com defasagens de um, dois e três meses^^.
+* A maior correlação estatística foi identificada com a defasagem de três meses (**$r=+0,3772$**; **$p=0,0836$**), configurando uma tendência marginal^^.
 
----
+## 3. Fluxo de Processamento (Pipeline ETL)
 
-## 3. Fluxo de Processamento (Pipeline Técnico)
+O tratamento dos dados seguiu as seguintes etapas de consolidação^^:
 
-1. **Normalização de Tipagem:** Conversão de colunas numéricas de `string` para `int64` para permitir cálculos matemáticos.
-2. **Tratamento de Nulos:** Aplicação de `fillna(0)` em colunas de saldo para não enviesar a média.
-3. **Filtragem de Outliers:** Identificação de municípios com movimentações atípicas que possam distorcer a visão estadual.
-4. **Join Temporal:** União das bases de Clima e Emprego através da chave composta `[Ano, Mês]`.
-
----
+* **Extração:** Captura dos arquivos XLSX mensais do Cadastro Geral de Empregados e Desempregados (CAGED) e dos arquivos CSV do Instituto Nacional de Meteorologia (INMET)^^.
+* **Transformação e Padronização:** Filtragem exclusiva para o estado do Rio Grande do Sul (código UF 43) e agregação mensal da precipitação pluviométrica por estação meteorológica^^.
+* **Consolidação:** Geração de dois arquivos analíticos principais: `caged_vs_clima_rs.csv` (série agregada) e `caged_setorial_rs.csv` (decomposição por setor econômico)^^.
 
 ## 4. Limitações Conhecidas
 
-* **Subnotificação:** O CAGED registra apenas o mercado formal. Impactos no trabalho informal (autônomos) não são capturados nesta análise.
-* **Dados Geográficos:** Algumas estações meteorológicas podem sofrer avarias durante enchentes, gerando lacunas que serão tratadas via interpolação linear.
-* **Disponibilidade:** Advindo do tempo e da manuteção, alguns links encontra-se indisponivel. Sendo assim, alguns meses de alguns respectivos anos estão com falta de dados.
+* **Restrição Amostral:** O tamanho reduzido da série temporal (**$n=25$** meses) limita o poder estatístico das análises de correlação, impedindo a rejeição formal da hipótese nula em determinados cenários^^.
+* **Subnotificação:** O CAGED registra apenas as movimentações do mercado formal. O impacto sobre trabalhadores informais e autônomos não é mensurado por este conjunto de dados.
+* **Disponibilidade e Continuidade:** Eventuais falhas de manutenção ou avarias em estações meteorológicas durante eventos extremos podem gerar lacunas na coleta contínua de índices pluviométricos.

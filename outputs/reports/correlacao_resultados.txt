@@ -1,0 +1,25 @@
+CORRELAÇÃO CHUVA × SALDO DE EMPREGOS — RIO GRANDE DO SUL
+Fonte: CAGED (MTE) + INMET | Período: 2023–2025
+============================================================
+
+1. CORRELAÇÃO CONTEMPORÂNEA (sem defasagem)
+   Pearson   r = -0.2617   p-valor = 0.2063
+   Spearman ρ = -0.1908   p-valor = 0.3610
+
+2. ANÁLISE DE LAG TIME
+   Lag +1 mês:  r = -0.0840   p-valor = 0.6964  
+   Lag +2 mês:  r = -0.1732   p-valor = 0.4293  
+   Lag +3 mês:  r = 0.3772   p-valor = 0.0836  (tendência marginal p<0.10)
+
+3. LAG MAIS EXPRESSIVO
+   Lag +3 mês(es): r = 0.3772  p = 0.0836
+
+4. INTERPRETAÇÃO METODOLÓGICA
+   A ausência de correlação linear forte entre precipitação mensal
+   agregada e saldo de empregos (r = -0.26, p = 0.21) indica que
+   o evento de maio/2024 se caracteriza como choque discreto e
+   não-linear, não captável por coeficientes de correlação de
+   séries mensais com n=25 observações.
+   O lag de +3 meses apresenta a correlação mais expressiva
+   (r = 0.38, p = 0.08), sugerindo resposta defasada do mercado
+   de trabalho ao choque climático extremo.

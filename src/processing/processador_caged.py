@@ -35,7 +35,7 @@ def _ler_xlsx(caminho: Path) -> pd.DataFrame | None:
  
         raw = pd.read_excel(caminho, sheet_name=ABA_ALVO, header=None)
  
-        grupo    = raw.iloc[4].fillna(method="ffill").astype(str).str.strip()
+        grupo    = raw.iloc[4].ffill().astype(str).str.strip()
         subgrupo = raw.iloc[5].astype(str).str.strip()
  
         nomes = []

@@ -1,18 +1,19 @@
+![rs-impact](/docs/assets/banner.png)
 # Economia RS Impact — Projeto de Análise de Dados
 
-Tema: Estudo da resiliência econômica do Rio Grande do Sul pós-desastre de 2024, cruzando dados de emprego do CAGED com índices de chuva do INMET.
+**Tema**: Estudo da resiliência econômica do Rio Grande do Sul pós-desastre de 2024, cruzando dados de emprego do CAGED com índices de chuva do INMET.
 
 ## Objetivo do Projeto
 
-Analisar o impacto socioeconômico das enchentes históricas no Rio Grande do Sul (ocorridas em maio de 2024) por meio da resiliência do mercado de trabalho formal. 
+Analisar o impacto socioeconômico das enchentes históricas no Rio Grande do Sul (ocorridas em maio de 2024) por meio da resiliência do mercado de trabalho formal.
 
 O projeto busca correlacionar índices pluviométricos extremos com a flutuação de empregos (admissões e desligamentos), estabelecendo uma linha do tempo (2023 como base, 2024 como evento e 2025 como recuperação) para identificar o *Lag Time* (tempo de resposta) e os setores econômicos mais afetados pela catástrofe.
 
----
-
 ## Estrutura do Projeto
 
-```text
+**Plaintext**
+
+```
 rs-impact/
 ├── data/
 │   ├── raw/                # Dados originais não modificados (CAGED, INMET, DEE-RS)
@@ -30,11 +31,10 @@ rs-impact/
 │   ├── charts/             # Gráficos (PNG, PDF)
 │   └── reports/            # Relatórios em texto e sumarizações (TXT, CSV finais)
 │
-├── docs/                   # Documentação detalhada e metadados
+├── docs/                   # Documentação detalhada, metadados e artigo final
 ├── requirements.txt        # Dependências do projeto
 └── README.md               # Este arquivo
 ```
----
 
 ## Pipeline de Dados (Fluxo de Execução)
 
@@ -46,8 +46,6 @@ O projeto segue um fluxo clássico de ETL e análise de Big Data:
 4. **Enriquecimento:** Join dos dados econômicos com as métricas de chuva (mm acima da média).
 5. **Análise e Visualização:** Extração de correlações estatísticas e geração dos artefatos visuais.
 
----
-
 ## Ferramentas e Tecnologias
 
 * **Python 3:** Linguagem base do projeto.
@@ -57,21 +55,22 @@ O projeto segue um fluxo clássico de ETL e análise de Big Data:
 * **Matplotlib / Seaborn:** Criação das visualizações e gráficos comparativos.
 * **Openpyxl / Xlrd:** Leitura e conversão de formatos legados e modernos do Excel.
 
----
-
-## Resultados Esperados
-
-O projeto deverá gerar, ao final do fluxo:
-
-* Datasets unificados, limpos e otimizados prontos para consultas.
-* Scripts automatizados e reutilizáveis para análise de séries temporais.
-* Visualizações gráficas que comprovem ou refutem a correlação direta entre o volume de chuvas e a queda de postos de trabalho em setores específicos.
-
----
-
 ## Documentação Adicional
 
-Para detalhes técnicos profundos, consulte o diretório `/docs`:
+Para detalhes técnicos profundos e acesso à fundamentação teórica, consulte o diretório `/docs`:
 
-* [`docs/datasets.md`](/docs/datasets.md): Dicionário de dados, mapeamento de colunas do CAGED e fontes originais.
-* [`docs/metodologia.md`](/docs/metodologia.md): Detalhamento estatístico e decisões de arquitetura do código.
+* [`docs/datasets.md`](/docs/datasets.md): Dicionário de dados, mapeamento de colunas do CAGED e descritivo das fontes originais.
+* [`docs/metodologia.md`](/docs/metodologia.md): Detalhamento estatístico, justificativas metodológicas e decisões de arquitetura do pipeline de dados.
+* [`docs/resultados_consolidados.md`](/docs/resultados_consolidados.md): Síntese dos achados analíticos finais, abordando as correlações setoriais e o comportamento de  *lag time* .
+* [`docs/trabalho_academico_rs_impact.pdf`](/docs/trabalho_academico_rs_impact.pdf): Documento consolidado da pesquisa acadêmica formatado conforme as normas da ABNT.
+
+## Contribuidores
+
+Este projeto foi desenvolvido como trabalho acadêmico para a disciplina de Big Data e Análise de Dados no Centro Universitário Estácio, Campus Aracaju (2026).
+
+- Lucas Paiva Santos de Oliveira — @lucaspaiva-lp
+- Rodrigo Moraes dos Santos — @RodrigoDevBack
+
+### Orientação
+
+- Prof. Max Castor Rodrigues Junior
