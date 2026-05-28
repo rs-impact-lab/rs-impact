@@ -55,6 +55,17 @@ O projeto segue um fluxo clássico de ETL e análise de Big Data:
 * **Matplotlib / Seaborn:** Criação das visualizações e gráficos comparativos.
 * **Openpyxl / Xlrd:** Leitura e conversão de formatos legados e modernos do Excel.
 
+## Desenvolvimento e Produtibilidade (Uso de IA)
+
+Este projeto adota práticas modernas de desenvolvimento de software, utilizando Inteligência Artificial Generativa (LLMs) como ferramenta de suporte e aumento de produtibilidade. 
+
+O uso da tecnologia concentrou-se em:
+* **Engenharia de Dados & Infraestrutura:** Auxílio na refatoração e otimização dos scripts de processamento distribuído (`PySpark`) e automações Python na camada de ETL.
+* **Qualidade de Código:** Validação de padrões de clean code e apoio na organização arquitetural dos diretórios (`data/raw`, `data/processed`, `src/`).
+* **Documentação:** Revisão técnica da documentação do pipeline e das especificações contidas nos arquivos de relatório.
+
+A lógica de negócio, a arquitetura do pipeline de ingestão do INMET/CAGED, a execução dos modelos analíticos de correlação (*Lag Time*) e a tomada de decisões estatísticas basearam-se inteiramente nos requisitos e no desenvolvimento técnico dos autores humanos.
+
 ## Documentação Adicional
 
 Para detalhes técnicos profundos e acesso à fundamentação teórica, consulte o diretório `/docs`:
