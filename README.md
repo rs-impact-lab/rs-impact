@@ -7,7 +7,7 @@
 
 Analisar o impacto socioeconômico das enchentes históricas no Rio Grande do Sul (ocorridas em maio de 2024) por meio da resiliência do mercado de trabalho formal.
 
-O projeto busca correlacionar índices pluviométricos extremos com a flutuação de empregos (admissões e desligamentos), estabelecendo uma linha do tempo (2023 como base, 2024 como evento e 2025 como recuperação) para identificar o *Lag Time* (tempo de resposta) e os setores econômicos mais afetados pela catástrofe..
+O projeto busca correlacionar índices pluviométricos extremos com a flutuação de empregos (admissões e desligamentos), estabelecendo uma linha do tempo (2023 como base, 2024 como evento e 2025 como recuperação) para identificar o *Lag Time* (tempo de resposta) e os setores econômicos mais afetados pela catástrofe.
 
 ## Estrutura do Projeto
 
