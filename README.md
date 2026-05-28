@@ -79,9 +79,9 @@ Para detalhes técnicos profundos e acesso à fundamentação teórica, consulte
 
 Este projeto foi desenvolvido como trabalho acadêmico para a disciplina de Big Data e Análise de Dados no Centro Universitário Estácio, Campus Aracaju (2026).
 
-- Lucas Paiva Santos de Oliveira — @lucaspaiva-lp
-- Rodrigo Moraes dos Santos — @RodrigoDevBack
+- [Lucas Paiva Santos de Oliveira](@lucaspaiva-lp) — @lucaspaiva-lp
+- [Rodrigo Moraes dos Santos](@RodrigoDevBack) — @RodrigoDevBack
 
-### Orientação
+### Orientador da Disciplina
 
 - Prof. Max Castor Rodrigues Junior
