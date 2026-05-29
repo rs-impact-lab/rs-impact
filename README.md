@@ -1,4 +1,4 @@
-![rs-impact](/docs/assets/banner.png)
+![rs-impact](/docs/assets/banner-original.png)
 # Economia RS Impact — Projeto de Análise de Dados
 
 **Tema**: Estudo da resiliência econômica do Rio Grande do Sul pós-desastre de 2024, cruzando dados de emprego do CAGED com índices de chuva do INMET.
